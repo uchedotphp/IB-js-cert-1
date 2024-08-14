@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <main>
+      <div>
+        <h1>Note app</h1>
+        <div>
+          <header>
+            <div class="headerTop">
+              <button id="add">Add new note +</button>
+              <h2 class="notesCount">
+                Count: <span class="notesCountNum"></span>1
+              </h2>
+            </div>
+            <form action="">
+              <label for="sort-by">Sort by:</label>
+              <select name="sort-by" id="sort-by">
+                <option value="id-desc" selected>ID (Descending)</option>
+                <option value="id-asc">ID (Ascending)</option>
+                <option value="title-asc">Title (A-Z)</option>
+                <option value="title-desc">Title (Z-A)</option>
+              </select>
+              <button id="sort" type="submit">Sort</button>
+            </form>
+          </header>
+          <div class="notesContainer">
+            <div class="note">
+              <div class="noteHeader">
+                <p class="noteIndex">1</p>
+              </div>
+              <input type="text" placeholder="Add title" />
+              <textarea name="" id="" placeholder="Add text"></textarea>
+
+              <div class="noteBtns">
+                <button id="delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
