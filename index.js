@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const notesContainer = document.querySelector(".notesContainer");
   const addNoteBtn = document.getElementById("add");
+  const sortBtn = document.getElementById("sort");
+  const sortOptions = document.getElementById("sort-by");
 
   // Add Note
   function addNote() {
@@ -66,12 +68,44 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNoteCount();
   }
 
+  // Sort Notes
+  function sortNotes(sortOptions) {
+    const notes = Array.from(notesContainer.querySelectorAll(".note"));
+
+    notes.sort((a, b) => {
+      const idA = parseInt(a.querySelector(".noteIndex").textContent);
+      const idB = parseInt(b.querySelector(".noteIndex").textContent);
+      const titleA = a.querySelector("input").value.toLowerCase();
+      const titleB = b.querySelector("input").value.toLowerCase();
+
+      switch (sortOptions) {
+        case "id-desc":
+          return idB - idA;
+        case "id-asc":
+          return idA - idB;
+        case "title-asc":
+          return titleA.localeCompare(titleB);
+        case "title-desc":
+          return titleB.localeCompare(titleA);
+        default:
+          return 0;
+      }
+    });
+
+    // Clear the notes container and re-append the sorted notes
+    notesContainer.innerHTML = "";
+    notes.forEach((note) => notesContainer.appendChild(note));
+  }
+
   // Event listeners
   addNoteBtn &&
     addNoteBtn.addEventListener("click", () => {
       addNote();
       updateNoteCount();
     });
+
+  sortBtn &&
+    sortBtn.addEventListener("click", () => sortNotes(sortOptions.value));
 
   notesContainer.addEventListener("click", (event) => {
     // Deleting a note
