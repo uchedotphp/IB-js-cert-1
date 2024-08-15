@@ -9,3 +9,6 @@ Your first task for this certification attempt is to implement the JS features i
   - ID (Ascending): Notes are sorted by ID from lowest to highest.
   - Title (A-Z): Notes are sorted alphabetically by title from A to Z.
   - Title (Z-A): Notes are sorted alphabetically by title from Z to A.
+
+## Added Bonus Feature
+- Prevent user from adding a new note without prefilling the title of a previously added note.
