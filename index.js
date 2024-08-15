@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // HTML note template
   const noteTemplate = (noteNumber) => `
-        <div class="note">
             <div class="noteHeader">
                 <p class="noteIndex">${noteNumber}</p>
             </div>
@@ -10,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="noteBtns">
                 <button id="delete">Delete</button>
             </div>
-        </div>
         `;
 
   const notesContainer = document.querySelector(".notesContainer");
@@ -42,7 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
         (notesContainer.querySelectorAll(".note") &&
           notesContainer.querySelectorAll(".note").length) ||
         0;
-      notesContainer.innerHTML += noteTemplate(lastNoteIndex + 1);
+      const newNoteElement = document.createElement("div");
+      newNoteElement.classList.add("note");
+      newNoteElement.innerHTML = noteTemplate(lastNoteIndex + 1);
+      notesContainer.appendChild(newNoteElement);
     }
   }
 
