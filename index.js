@@ -15,10 +15,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const notesContainer = document.querySelector(".notesContainer");
   const addNoteBtn = document.getElementById("add");
-  
+
   // Add Note
   function addNote() {
-    if (notesContainer) {
+    const lastNoteIndex =
+      (notesContainer.querySelectorAll(".note") &&
+        notesContainer.querySelectorAll(".note").length) ||
+      0;
+    const lastNote =
+      (lastNoteIndex &&
+        notesContainer.querySelectorAll(".note")[lastNoteIndex - 1]) ||
+      null;
+    const lastNoteTitle = lastNote && lastNote.querySelector("input");
+    // check if the previously added note has a title
+    if (lastNote !== null && !lastNoteTitle.value.length) {
+      // show error styles on last note
+      lastNote.classList.add("error");
+      lastNoteTitle.classList.add("input-error");
+      setTimeout(() => {
+        alert("Please include a title in your last note");
+      }, 1);
+    } else if (notesContainer) {
+      lastNote?.classList?.remove("error");
+      lastNoteTitle?.classList?.remove("input-error");
       const lastNoteIndex =
         (notesContainer.querySelectorAll(".note") &&
           notesContainer.querySelectorAll(".note").length) ||
