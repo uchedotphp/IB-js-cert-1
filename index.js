@@ -11,3 +11,16 @@ const noteTemplate = `
         </div>
     </div>
     `;
+
+// Add Note
+function addNote() {
+  const notesContainer = document.querySelector(".notesContainer");
+  if (notesContainer) {
+    notesContainer.innerHTML += noteTemplate;
+  }
+}
+
+const addNoteBtn = document.getElementById("add");
+if (addNoteBtn) {
+  addNoteBtn.addEventListener("click", () => addNote());
+}
