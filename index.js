@@ -15,14 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const notesContainer = document.querySelector(".notesContainer");
   const addNoteBtn = document.getElementById("add");
-
-  // update note count
-  function updateNoteCount() {
-    const totalNotes = notesContainer.querySelectorAll(".note").length;
-    const notesCountNumContainer = document.querySelector(".notesCountNum");
-    notesCountNumContainer.textContent = totalNotes;
-  }
-
+  
   // Add Note
   function addNote() {
     if (notesContainer) {
@@ -32,6 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
         0;
       notesContainer.innerHTML += noteTemplate(lastNoteIndex + 1);
     }
+  }
+
+  // update note count
+  function updateNoteCount() {
+    const totalNotes = notesContainer.querySelectorAll(".note").length;
+    const notesCountNumContainer = document.querySelector(".notesCountNum");
+    notesCountNumContainer.textContent = totalNotes;
   }
 
   // Delete a note
@@ -46,13 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNoteCount();
   }
 
+  // Event listeners
   addNoteBtn &&
     addNoteBtn.addEventListener("click", () => {
       addNote();
       updateNoteCount();
     });
 
-  // Event listeners
   notesContainer.addEventListener("click", (event) => {
     // Deleting a note
     if (event.target.id === "delete") {
