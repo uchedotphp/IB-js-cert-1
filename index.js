@@ -12,6 +12,13 @@ const noteTemplate = `
     </div>
     `;
 
+// update note count
+function updateNoteCount() {
+  const totalNotes = document.querySelectorAll(".notesContainer .note").length;
+  const notesCountNumContainer = document.querySelector(".notesCountNum");
+  notesCountNumContainer.textContent = totalNotes;
+}
+
 // Add Note
 function addNote() {
   const notesContainer = document.querySelector(".notesContainer");
@@ -22,5 +29,10 @@ function addNote() {
 
 const addNoteBtn = document.getElementById("add");
 if (addNoteBtn) {
-  addNoteBtn.addEventListener("click", () => addNote());
+  addNoteBtn.addEventListener("click", () => {
+    addNote();
+    updateNoteCount();
+  });
 }
+
+updateNoteCount(); // called once on dom loaded
