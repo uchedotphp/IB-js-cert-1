@@ -1,8 +1,8 @@
 // HTML note template
-const noteTemplate = `
+const noteTemplate = (noteNumber) => `
     <div class="note">
         <div class="noteHeader">
-            <p class="noteIndex">1</p>
+            <p class="noteIndex">${noteNumber}</p>
         </div>
         <input type="text" placeholder="Add title" />
         <textarea name="" id="" placeholder="Add text"></textarea>
@@ -23,7 +23,11 @@ function updateNoteCount() {
 function addNote() {
   const notesContainer = document.querySelector(".notesContainer");
   if (notesContainer) {
-    notesContainer.innerHTML += noteTemplate;
+    const lastNoteIndex =
+      (notesContainer.querySelectorAll(".note") &&
+        notesContainer.querySelectorAll(".note").length) ||
+      0;
+    notesContainer.innerHTML += noteTemplate(lastNoteIndex + 1);
   }
 }
 
