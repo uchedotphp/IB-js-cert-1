@@ -18,27 +18,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add Note
   function addNote() {
-    const lastNoteIndex =
-      (notesContainer.querySelectorAll(".note") &&
-        notesContainer.querySelectorAll(".note").length) ||
-      0;
-    const lastNote =
-      (lastNoteIndex &&
-        notesContainer.querySelectorAll(".note")[0]) ||
-      null;
-    const lastNoteTitle = lastNote && lastNote.querySelector("input");
-
     // check if the previously added note has a title
-    if (lastNote !== null && !lastNoteTitle.value.length) {
-      // show error styles on last note
-      lastNote.classList.add("error");
-      lastNoteTitle.classList.add("input-error");
+    const allNotes = notesContainer.querySelectorAll(".note");
+    const notesWithoutTitle = [];
+
+    allNotes.forEach((note) => {
+      const titleInput = note.querySelector("input");
+      if (!titleInput.value.trim()) {
+        notesWithoutTitle.push(note); // store the note if the title is missing
+      }
+    });
+    if (notesWithoutTitle.length) {
+      // show error styles on notes with missing titles
+      notesWithoutTitle.forEach((note) => {
+        note.classList.add("error");
+        note && note.querySelector("input").classList.add("input-error");
+      });
       setTimeout(() => {
         alert("Please include a title in your last note");
-      }, 1);
+      }, 2);
     } else if (notesContainer) {
-      lastNote?.classList?.remove("error");
-      lastNoteTitle?.classList?.remove("input-error");
+      notesContainer.querySelectorAll(".note").length && notesContainer.querySelectorAll(".note").forEach((note) => {
+        note.classList.remove("error");
+        note && note.querySelector("input").classList.remove("input-error");
+      });
 
       // Create new note element with note number 1
       const newNoteElement = document.createElement("div");
