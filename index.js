@@ -24,9 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
       0;
     const lastNote =
       (lastNoteIndex &&
-        notesContainer.querySelectorAll(".note")[lastNoteIndex - 1]) ||
+        notesContainer.querySelectorAll(".note")[0]) ||
       null;
     const lastNoteTitle = lastNote && lastNote.querySelector("input");
+
     // check if the previously added note has a title
     if (lastNote !== null && !lastNoteTitle.value.length) {
       // show error styles on last note
@@ -38,14 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (notesContainer) {
       lastNote?.classList?.remove("error");
       lastNoteTitle?.classList?.remove("input-error");
-      const lastNoteIndex =
-        (notesContainer.querySelectorAll(".note") &&
-          notesContainer.querySelectorAll(".note").length) ||
-        0;
+
+      // Create new note element with note number 1
       const newNoteElement = document.createElement("div");
       newNoteElement.classList.add("note");
-      newNoteElement.innerHTML = noteTemplate(lastNoteIndex + 1);
-      notesContainer.appendChild(newNoteElement);
+      newNoteElement.innerHTML = noteTemplate(1);
+
+      // Prepend the new note to the top of the notes container
+      notesContainer.insertBefore(newNoteElement, notesContainer.firstChild);
+
+      // Reorder the existing notes
+      const notes = notesContainer.querySelectorAll(".note");
+      notes.forEach((note, index) => {
+        note.querySelector(".noteIndex").textContent = index + 1;
+      });
+
+      updateNoteCount();
     }
   }
 
