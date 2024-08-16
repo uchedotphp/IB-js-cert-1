@@ -38,10 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Please include a title in your last note");
       }, 2);
     } else if (notesContainer) {
-      notesContainer.querySelectorAll(".note").length && notesContainer.querySelectorAll(".note").forEach((note) => {
-        note.classList.remove("error");
-        note && note.querySelector("input").classList.remove("input-error");
-      });
+      notesContainer.querySelectorAll(".note").length &&
+        notesContainer.querySelectorAll(".note").forEach((note) => {
+          note.classList.remove("error");
+          note && note.querySelector("input").classList.remove("input-error");
+        });
 
       // Create new note element with note number 1
       const newNoteElement = document.createElement("div");
@@ -90,15 +91,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const titleA = a.querySelector("input").value.toLowerCase();
       const titleB = b.querySelector("input").value.toLowerCase();
 
+      // Handle alphabetical sorting with empty titles coming last
+      if (sortOptions === "title-asc" || sortOptions === "title-desc") {
+        if (!titleA && !titleB) return 0; // Both titles are empty, maintain original order
+        if (!titleA) return 1; // a has an empty title, so it should go after b
+        if (!titleB) return -1; // b has an empty title, so it should go after a
+
+        if (sortOptions === "title-asc") {
+          return titleA.localeCompare(titleB); // a-z sorting
+        } else if (sortOptions === "title-desc") {
+          return titleB.localeCompare(titleA); // z-a sorting
+        }
+      }
+
       switch (sortOptions) {
         case "id-desc":
           return idB - idA;
         case "id-asc":
           return idA - idB;
-        case "title-asc":
-          return titleA.localeCompare(titleB);
-        case "title-desc":
-          return titleB.localeCompare(titleA);
         default:
           return 0;
       }
