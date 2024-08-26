@@ -63,20 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Add/Remove error class from a note
   function toggleErrorClassToNote({ note, type }) {
-    switch (type) {
-      case "add":
-        note && note.classList.add("error");
-        note && note.querySelector("input").classList.add("input-error");
-        break;
-
-      case "remove":
-        note && note.classList.remove("error");
-        note && note.querySelector("input").classList.remove("input-error");
-
-      default:
-        // Do nothing
-        break;
+    if (["add", "remove"].includes(type)) {
+      note && note.classList[type]("error");
+      note && note.querySelector("input").classList[type]("input-error");
     }
   }
 
