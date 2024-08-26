@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const addNoteBtn = document.getElementById("add");
   const sortBtn = document.getElementById("sort");
   const sortOptions = document.getElementById("sort-by");
-  // const notesWithoutTitle = []; // keeps track of notes without titles
 
   // Add Note
   function addNote() {
@@ -69,6 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
       note && note.classList[type]("error");
       note && note.querySelector("input").classList[type]("input-error");
     }
+  }
+
+  // Add focus to note without title during error alert
+  function focusOnNote(note) {
+    note && note.querySelector('input').focus()
+  }
+
+  // check and remove error classes
+  function removeNonEmptyNotes(note) {
+    note && note.addEventListener("keypress", toggleErrorClassToNote(note));
   }
 
   // update note count
