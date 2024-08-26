@@ -44,19 +44,21 @@ document.addEventListener("DOMContentLoaded", () => {
           toggleErrorClassToNote({ note, type: "remove" });
         });
 
+        const lastNoteIndex = notesContainer.querySelectorAll('.note').length + 1
+
       // Create new note element with note number 1
       const newNoteElement = document.createElement("div");
       newNoteElement.classList.add("note");
-      newNoteElement.innerHTML = noteTemplate(1);
+      newNoteElement.innerHTML = noteTemplate(lastNoteIndex);
 
       // Prepend the new note to the top of the notes container
       notesContainer.insertBefore(newNoteElement, notesContainer.firstChild);
 
       // Reorder the existing notes
-      const notes = notesContainer.querySelectorAll(".note");
-      notes.forEach((note, index) => {
-        note.querySelector(".noteIndex").textContent = index + 1;
-      });
+      // const notes = notesContainer.querySelectorAll(".note");
+      // notes.forEach((note, index) => {
+      //   note.querySelector(".noteIndex").textContent = index + 1;
+      // });
 
       updateNoteCount();
     }
