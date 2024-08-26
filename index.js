@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     notes.sort((a, b) => {
       const idA = parseInt(a.querySelector(".noteIndex").textContent);
       const idB = parseInt(b.querySelector(".noteIndex").textContent);
-      const titleA = a.querySelector("input").value.toLowerCase();
-      const titleB = b.querySelector("input").value.toLowerCase();
+      const titleA = a.querySelector("input").value.trim().toLowerCase();
+      const titleB = b.querySelector("input").value.trim().toLowerCase();
 
       // Handle alphabetical sorting with empty titles coming last
       if (sortOptions === "title-asc" || sortOptions === "title-desc") {
