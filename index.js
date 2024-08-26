@@ -15,33 +15,34 @@ document.addEventListener("DOMContentLoaded", () => {
   const addNoteBtn = document.getElementById("add");
   const sortBtn = document.getElementById("sort");
   const sortOptions = document.getElementById("sort-by");
+  // const notesWithoutTitle = []; // keeps track of notes without titles
 
   // Add Note
   function addNote() {
-    // check if the previously added note has a title
     const allNotes = notesContainer.querySelectorAll(".note");
-    const notesWithoutTitle = [];
+    const notesWithoutTitle = []; // keeps track of notes without titles
 
     allNotes.forEach((note) => {
       const titleInput = note.querySelector("input");
-      if (!titleInput.value.trim()) {
+      if (!titleInput.value.trim().length) {
         notesWithoutTitle.push(note); // store the note if the title is missing
       }
     });
+
+    // check if the previously added notes have a title
     if (notesWithoutTitle.length) {
-      // show error styles on notes with missing titles
       notesWithoutTitle.forEach((note) => {
-        note.classList.add("error");
-        note && note.querySelector("input").classList.add("input-error");
+        // show error styles on notes with missing titles
+        toggleErrorClassToNote({ note, type: "add" });
       });
-      setTimeout(() => {
-        alert("Please include a title in your last note");
-      }, 2);
+      // setTimeout(() => {
+      //   alert("Please include a title in your last note");
+      // }, 2);
     } else if (notesContainer) {
       notesContainer.querySelectorAll(".note").length &&
         notesContainer.querySelectorAll(".note").forEach((note) => {
-          note.classList.remove("error");
-          note && note.querySelector("input").classList.remove("input-error");
+          // Remove error classes from any note with one
+          toggleErrorClassToNote({ note, type: "remove" });
         });
 
       // Create new note element with note number 1
@@ -59,6 +60,23 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       updateNoteCount();
+    }
+  }
+
+  function toggleErrorClassToNote({ note, type }) {
+    switch (type) {
+      case "add":
+        note && note.classList.add("error");
+        note && note.querySelector("input").classList.add("input-error");
+        break;
+
+      case "remove":
+        note && note.classList.remove("error");
+        note && note.querySelector("input").classList.remove("input-error");
+
+      default:
+        // Do nothing
+        break;
     }
   }
 
